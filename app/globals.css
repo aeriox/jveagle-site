@@ -1,26 +1,210 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f7f4ee;
+  --fg: #0b2545;
+  --muted: #5b6a82;
+  --primary: #0b2545;
+  --primary-fg: #f7f4ee;
+  --accent: #d4a437;
+  --accent-fg: #0b2545;
+  --surface: #ffffff;
+  --border: rgba(11, 37, 69, 0.12);
+  --shadow: 0 1px 2px rgba(11, 37, 69, 0.05), 0 8px 24px rgba(11, 37, 69, 0.06);
+  /* Typography (overridden by [data-typography]) */
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.03em;
+  --display-transform: none;
+  --eyebrow-tracking: 0.18em;
+  --radius-btn: 0.5rem;
+  --radius-card: 0.875rem;
+  --body-weight: 400;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* === Typography systems === */
+[data-typography="modern-sans"] {
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.03em;
+  --display-transform: none;
+  --eyebrow-tracking: 0.18em;
+  --radius-btn: 0.5rem;
+  --radius-card: 0.875rem;
+  --body-weight: 400;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-typography="editorial-serif"] {
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 700;
+  --display-tracking: -0.02em;
+  --display-transform: none;
+  --eyebrow-tracking: 0.22em;
+  --radius-btn: 0.125rem;
+  --radius-card: 0.25rem;
+  --body-weight: 400;
+}
+
+[data-typography="industrial"] {
+  --font-display: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 700;
+  --display-tracking: -0.04em;
+  --display-transform: uppercase;
+  --eyebrow-tracking: 0.28em;
+  --radius-btn: 0;
+  --radius-card: 0;
+  --body-weight: 400;
+}
+
+[data-typography="friendly"] {
+  --font-display: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.025em;
+  --display-transform: none;
+  --eyebrow-tracking: 0.14em;
+  --radius-btn: 999px;
+  --radius-card: 1.5rem;
+  --body-weight: 400;
+}
+
+[data-theme="navy-gold"] {
+  --bg: #f7f4ee;
+  --fg: #0b2545;
+  --muted: #5b6a82;
+  --primary: #0b2545;
+  --primary-fg: #f7f4ee;
+  --accent: #d4a437;
+  --accent-fg: #0b2545;
+  --surface: #ffffff;
+  --border: rgba(11, 37, 69, 0.12);
+  --shadow: 0 1px 2px rgba(11, 37, 69, 0.05), 0 8px 24px rgba(11, 37, 69, 0.06);
+}
+
+[data-theme="bold-crimson"] {
+  --bg: #f5f1e8;
+  --fg: #1a1a1a;
+  --muted: #5a544a;
+  --primary: #1a1a1a;
+  --primary-fg: #f5f1e8;
+  --accent: #b91c1c;
+  --accent-fg: #ffffff;
+  --surface: #ffffff;
+  --border: rgba(26, 26, 26, 0.14);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="coastal-teal"] {
+  --bg: #fdfcfa;
+  --fg: #0f4c5c;
+  --muted: #6b7a82;
+  --primary: #0f4c5c;
+  --primary-fg: #fdfcfa;
+  --accent: #e29578;
+  --accent-fg: #1a1a1a;
+  --surface: #ffffff;
+  --border: rgba(15, 76, 92, 0.14);
+  --shadow: 0 1px 2px rgba(15, 76, 92, 0.05), 0 8px 24px rgba(15, 76, 92, 0.07);
+}
+
+[data-theme="dark-pro"] {
+  --bg: #0a0a0a;
+  --fg: #fafafa;
+  --muted: #a3a3a3;
+  --primary: #fafafa;
+  --primary-fg: #0a0a0a;
+  --accent: #f97316;
+  --accent-fg: #0a0a0a;
+  --surface: #171717;
+  --border: rgba(250, 250, 250, 0.12);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: var(--body-weight);
+  transition: background-color 200ms ease, color 200ms ease;
+  min-height: 100vh;
+}
+
+.bg-app { background: var(--bg); }
+.bg-surface { background: var(--surface); }
+.bg-primary { background: var(--primary); color: var(--primary-fg); }
+.bg-accent { background: var(--accent); color: var(--accent-fg); }
+.text-fg { color: var(--fg); }
+.text-muted { color: var(--muted); }
+.text-accent { color: var(--accent); }
+.text-primary { color: var(--primary); }
+.border-app { border-color: var(--border); }
+.ring-accent { --tw-ring-color: var(--accent); }
+.shadow-app { box-shadow: var(--shadow); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease, border-radius 200ms ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--primary); color: var(--primary-fg); }
+.btn-accent { background: var(--accent); color: var(--accent-fg); }
+.btn-outline {
+  background: transparent;
+  color: var(--fg);
+  border-color: var(--border);
+}
+.btn-outline:hover { background: var(--surface); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: border-radius 200ms ease;
+}
+
+.section { padding-top: 5rem; padding-bottom: 5rem; }
+@media (min-width: 1024px) { .section { padding-top: 7rem; padding-bottom: 7rem; } }
+
+.container-pad { padding-left: 1.25rem; padding-right: 1.25rem; }
+@media (min-width: 1024px) { .container-pad { padding-left: 2rem; padding-right: 2rem; } }
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: var(--eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.h-display {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+  line-height: 1.05;
 }
