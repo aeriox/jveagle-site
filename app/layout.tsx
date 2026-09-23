@@ -4,6 +4,7 @@ import { SiteProvider } from "@/components/site-provider";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Picker } from "@/components/picker";
+import { StickyMobileBar } from "@/components/sticky-mobile-bar";
 import { COMPANY } from "@/lib/content";
 import { inter, playfair, jetbrains, dmSans } from "./fonts";
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Nav />
           <main>{children}</main>
           <Footer />
+          <StickyMobileBar />
           <Picker />
         </SiteProvider>
       </body>
