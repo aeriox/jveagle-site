@@ -254,3 +254,5 @@ body {
   }
   body { padding-bottom: calc(3.6rem + env(safe-area-inset-bottom, 0px)); }
 }
+
+html[data-picker-open="1"] .sticky-mobile-bar { display: none !important; }

@@ -26,7 +26,7 @@ const LAYOUT_KEY = "jveagle:layout";
 
 export function SiteProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<ThemeId>(DEFAULT_THEME);
-  const [logo, setLogoState] = useState<LogoId>("chrome-eagle");
+  const [logo, setLogoState] = useState<LogoId>("original");
   const [typography, setTypographyState] = useState<TypographyId>(DEFAULT_TYPOGRAPHY);
   const [layout, setLayoutState] = useState<LayoutId>(DEFAULT_LAYOUT);
 
