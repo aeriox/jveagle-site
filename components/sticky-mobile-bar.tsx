@@ -1,10 +1,10 @@
 "use client";
 
-import { site } from "@/lib/content";
+import { COMPANY } from "@/lib/content";
 
 export function StickyMobileBar() {
-  const phoneHref = site.phoneHref?.trim() || "";
-  const phoneLabel = site.phone?.trim() || "";
+  const phoneHref = COMPANY.phoneHref?.trim() || "";
+  const phoneLabel = COMPANY.phone?.trim() || "";
   const hasPhone = Boolean(phoneHref && phoneHref.startsWith("tel:"));
 
   return (
