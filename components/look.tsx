@@ -7,6 +7,7 @@ import { isDarkTheme, type ThemeId } from "@/lib/themes";
 import type { LayoutId } from "@/lib/layouts";
 import type { LogoId } from "@/lib/logos";
 import type { TypographyId } from "@/lib/typography";
+import { holdPlace, settle } from "@/components/keep-place";
 
 function cloneValues(v: LookValues): LookValues {
   return { theme: v.theme, layout: v.layout, typography: v.typography, logo: v.logo };
@@ -41,13 +42,22 @@ export function Look() {
     else delete document.documentElement.dataset.pickerOpen;
   }, [open]);
 
+  // A pick restyles the page where the visitor is: the line under the header holds still while the look settles (keep-place.ts).
+  function restyle(change: () => void) {
+    holdPlace(".look-picker");
+    change();
+    settle();
+  }
+
   function applyPreset(p: LookPreset) {
     const v = cloneValues(p.values);
-    setTheme(v.theme);
-    setLayout(v.layout);
-    setTypography(v.typography);
-    setLogo(v.logo);
-    setPresetId(p.id);
+    restyle(() => {
+      setTheme(v.theme);
+      setLayout(v.layout);
+      setTypography(v.typography);
+      setLogo(v.logo);
+      setPresetId(p.id);
+    });
     try {
       localStorage.setItem(lookConfig.key, JSON.stringify({ ...v, presetId: p.id }));
     } catch {}
@@ -61,8 +71,10 @@ export function Look() {
   }
 
   function setThemeAxis(mode: "light" | "dark") {
-    if (mode === "dark") setTheme("dark-pro");
-    else if (isDarkTheme(theme)) setTheme("navy-gold");
+    restyle(() => {
+      if (mode === "dark") setTheme("dark-pro");
+      else if (isDarkTheme(theme)) setTheme("navy-gold");
+    });
   }
 
   const status = presetId ? presets.find((p) => p.id === presetId)?.name || "" : "Custom";
@@ -124,7 +136,7 @@ export function Look() {
                   label="Layout"
                   options={lookConfig.layouts}
                   value={layout}
-                  onPick={(id) => setLayout(id as LayoutId)}
+                  onPick={(id) => restyle(() => setLayout(id as LayoutId))}
                 />
                 <Axis
                   label="Theme"
@@ -139,19 +151,19 @@ export function Look() {
                   label="Palette"
                   options={lookConfig.themes}
                   value={theme}
-                  onPick={(id) => setTheme(id as ThemeId)}
+                  onPick={(id) => restyle(() => setTheme(id as ThemeId))}
                 />
                 <Axis
                   label="Type"
                   options={lookConfig.fonts}
                   value={typography}
-                  onPick={(id) => setTypography(id as TypographyId)}
+                  onPick={(id) => restyle(() => setTypography(id as TypographyId))}
                 />
                 <Axis
                   label="Logo"
                   options={lookConfig.logos}
                   value={logo}
-                  onPick={(id) => setLogo(id as LogoId)}
+                  onPick={(id) => restyle(() => setLogo(id as LogoId))}
                 />
                 <button type="button" className="look-reset text-[0.78rem] underline text-muted" onClick={reset}>
                   Reset to Look 1
